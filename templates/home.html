@@ -1,27 +1,38 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center mb-4">📋 Bizning Menu</h2>
-    <div class="row g-4">
-        {% for menuitem in menuitems %}
-            <div class="col-md-4">
+<div class="container my-4">
+    <!-- 📂 Kategoriyalar -->
+    <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+        <a href="{% url 'home' %}" class="btn btn-outline-success {% if not selected_category %}active{% endif %}">Barchasi</a>
+        {% for category in categories %}
+            <a href="{% url 'category' category.name %}" 
+               class="btn btn-outline-success {% if selected_category == category.name %}active{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- 📋 Menyu -->
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-4 mb-4">
                 <div class="card shadow-sm h-100">
-                    {% if menuitem.image %}
-                        <img src="{{ menuitem.image.url }}" class="card-img-top" alt="{{ menuitem.name }}">
-                    {% else %}
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="No Image">
-                    {% endif %}
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ menuitem.name }}</h5>
-                        <p class="card-text fw-bold text-success">{{ menuitem.price }} so'm</p>
-                        <a href="{% url 'menuitem_detail' menuitem.id %}" class="btn btn-primary">Batafsil</a>
+                        <h4 class="card-title">{{ item.name }}</h4>
+                        <h5 class="text-success">{{ item.price }} so'm</h5>
+    
+                        <!-- 📌 Batafsil tugmasi -->
+                        <a href="{% url 'item_detail' item.id %}" class="btn btn-outline-primary mt-2">Batafsil</a>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p class="text-center">Hozircha menyuda taomlar yo‘q.</p>
+            <p class="text-center">Bu kategoriyada hali menyular mavjud emas.</p>
         {% endfor %}
     </div>
+    
 </div>
 {% endblock content %}
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,MenuItem
+from .models import Category,MenuItem,Comment
 
 # Register your models here.
 
@@ -11,3 +11,5 @@ class MenuItemAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id','name']
+
+admin.site.register(Comment)
