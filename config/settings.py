@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     #internal
     'accounts',
     'menu',
+    'order',
 
     #external
     'crispy_bootstrap5',
