@@ -2,8 +2,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container my-4">
-    <!-- 📂 Kategoriyalar -->
-    <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+    <!-- 📋 Category Navbar (Fixed) -->
+    <div class="category-navbar-container d-flex justify-content-center gap-3 flex-wrap mb-4" style="position: fixed; top: 70px; left: 0; right: 0; background-color: #fff; z-index: 999; padding: 10px 0; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
         <a href="{% url 'home' %}" class="btn btn-outline-success {% if not selected_category %}active{% endif %}">Barchasi</a>
         {% for category in categories %}
             <a href="{% url 'category' category.name %}" 
@@ -13,26 +13,28 @@
         {% endfor %}
     </div>
 
-    <!-- 📋 Menyu -->
-    <div class="row">
-        {% for item in items %}
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">{{ item.name }}</h4>
-                        <h5 class="text-success">{{ item.price }} so'm</h5>
-    
-                        <!-- 📌 Batafsil tugmasi -->
-                        <a href="{% url 'item_detail' item.id %}" class="btn btn-outline-primary mt-2">Batafsil</a>
+    <!-- Main Content with margin-top to avoid overlap -->
+    <div style="margin-top: 200px;">
+        <!-- 📋 Menyu -->
+        <div class="row">
+            {% for item in items %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ item.name }}</h4>
+                            <h5 class="text-success">{{ item.price }} so'm</h5>
+        
+                            <!-- 📌 Batafsil tugmasi -->
+                            <a href="{% url 'item_detail' item.id %}" class="btn btn-outline-primary mt-2">Batafsil</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% empty %}
-            <p class="text-center">Bu kategoriyada hali menyular mavjud emas.</p>
-        {% endfor %}
+            {% empty %}
+                <p class="text-center">Bu kategoriyada hali menyular mavjud emas.</p>
+            {% endfor %}
+        </div>
     </div>
-    
 </div>
 {% endblock content %}
 
